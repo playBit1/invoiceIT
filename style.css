@@ -1,0 +1,114 @@
+body {
+}
+
+.req {
+    color: #ff0000;
+    font-weight: 600;
+}
+
+.frmlabel {
+    font-weight: 600;
+}
+
+.standardheader {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.coltitle{
+    font-weight: 600;
+}
+
+
+.backtomenu {
+    text-align: right;
+}
+
+.header {
+    text-align: center;
+    font-size: 20px;
+}
+
+.frm_row_cont {
+    width: 100%;
+    padding: 5px 0 5px 0;
+    font-size: 20px;
+}
+
+.button {
+    background-color: #000080;
+    border: none;
+    color: white;
+    padding: 7px 9px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.addcrsmsgdiv {
+    display: none;
+}
+
+.addaccmsgdiv {
+    display: none;
+}
+
+.addpresmsgdiv {
+    display: none;
+}
+
+.addroommsgdiv {
+    display: none;
+}
+
+.updatecrsmsgdiv {
+    display: none;
+}
+
+.addsessmsgdiv {
+    display: none;
+}
+
+.welcmsgadpanldiv {
+    display: none;
+}
+
+.deletecrsmsgdiv {
+    display: none;
+}
+
+.dllist {
+    width: 350px;
+    border: solid 1px #000080;
+    border-radius: 3px;
+}
+
+.dllist_eh {
+    width: 252px;
+    border: solid 2px #000080;
+    border-radius: 3px;
+}
+
+.tbinput {
+    width: 350px;
+    height:25px;
+    font-size:20px;
+    border: solid 1px #000080;
+    border-radius: 3px;
+}
+
+.fauxlink {
+    color: #0094ff;
+}
+
+.greybox {
+    background-color: #ede6e6;
+    border: solid 1px #7d7777;
+    border-radius: 5px;
+    width: 365px;
+    padding:0 5px 0 5px;
+}

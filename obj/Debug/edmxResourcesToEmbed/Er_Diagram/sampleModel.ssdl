@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="invoiceITModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CLIENT">
+    <Key>
+      <PropertyRef Name="Client_ID" />
+    </Key>
+    <Property Name="Client_ID" Type="int" Nullable="false" />
+    <Property Name="Comp_Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Comp_Add1" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Comp_Add2" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Comp_Location" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Comp_Pcode" Type="nchar" MaxLength="4" Nullable="false" />
+    <Property Name="Contact_Fname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Contact_Lname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Contact_Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Contact_Mobile" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Bill_To" Type="nchar" MaxLength="40" Nullable="false" />
+    <Property Name="Status" Type="nchar" MaxLength="40" Nullable="false" />
+  </EntityType>
+  <EntityType Name="INVOICE">
+    <Key>
+      <PropertyRef Name="Invoice_ID" />
+    </Key>
+    <Property Name="Invoice_ID" Type="int" Nullable="false" />
+    <Property Name="Client_ID" Type="int" Nullable="false" />
+    <Property Name="Work_ID" Type="int" Nullable="false" />
+    <Property Name="Generated_Date" Type="date" Nullable="false" />
+    <Property Name="Sent_Date" Type="date" Nullable="false" />
+    <Property Name="Payment_Due_Date" Type="date" Nullable="false" />
+    <Property Name="Status" Type="nchar" MaxLength="40" Nullable="false" />
+  </EntityType>
+  <EntityType Name="STAFF">
+    <Key>
+      <PropertyRef Name="Staff_ID" />
+    </Key>
+    <Property Name="Staff_ID" Type="int" Nullable="false" />
+    <Property Name="Admin_Id" Type="int" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="F_Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Surname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Mobile" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Access_Level" Type="nchar" MaxLength="40" Nullable="false" />
+    <Property Name="Status" Type="nchar" MaxLength="40" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TASK">
+    <Key>
+      <PropertyRef Name="Task_ID" />
+    </Key>
+    <Property Name="Task_ID" Type="int" Nullable="false" />
+    <Property Name="Task_Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Task_Description" Type="nvarchar(max)" />
+    <Property Name="Task_Rate" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WORKITEM">
+    <Key>
+      <PropertyRef Name="Work_ID" />
+    </Key>
+    <Property Name="Work_ID" Type="int" Nullable="false" />
+    <Property Name="Client_ID" Type="int" Nullable="false" />
+    <Property Name="Staff_ID" Type="int" Nullable="false" />
+    <Property Name="Start_Date" Type="date" Nullable="false" />
+    <Property Name="Completed_Date" Type="date" Nullable="false" />
+    <Property Name="Start_Time" Type="time" Precision="7" Nullable="false" />
+    <Property Name="End_Time" Type="time" Precision="7" Nullable="false" />
+    <Property Name="Status" Type="nchar" MaxLength="40" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="WORKITEMTASK">
+    <Key>
+      <PropertyRef Name="Work_ID" />
+      <PropertyRef Name="Task_ID" />
+    </Key>
+    <Property Name="Work_ID" Type="int" Nullable="false" />
+    <Property Name="Task_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_InvoiceClient">
+    <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="1" />
+    <End Role="INVOICE" Type="Self.INVOICE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENT">
+        <PropertyRef Name="Client_ID" />
+      </Principal>
+      <Dependent Role="INVOICE">
+        <PropertyRef Name="Client_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvoiceWork">
+    <End Role="WORKITEM" Type="Self.WORKITEM" Multiplicity="1" />
+    <End Role="INVOICE" Type="Self.INVOICE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WORKITEM">
+        <PropertyRef Name="Work_ID" />
+      </Principal>
+      <Dependent Role="INVOICE">
+        <PropertyRef Name="Work_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StaffManager">
+    <End Role="STAFF" Type="Self.STAFF" Multiplicity="1" />
+    <End Role="STAFF1" Type="Self.STAFF" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="STAFF">
+        <PropertyRef Name="Staff_ID" />
+      </Principal>
+      <Dependent Role="STAFF1">
+        <PropertyRef Name="Admin_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TASK">
+    <End Role="TASK" Type="Self.TASK" Multiplicity="1" />
+    <End Role="WORKITEMTASK" Type="Self.WORKITEMTASK" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TASK">
+        <PropertyRef Name="Task_ID" />
+      </Principal>
+      <Dependent Role="WORKITEMTASK">
+        <PropertyRef Name="Task_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Work">
+    <End Role="WORKITEM" Type="Self.WORKITEM" Multiplicity="1" />
+    <End Role="WORKITEMTASK" Type="Self.WORKITEMTASK" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WORKITEM">
+        <PropertyRef Name="Work_ID" />
+      </Principal>
+      <Dependent Role="WORKITEMTASK">
+        <PropertyRef Name="Work_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WorkClient">
+    <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="1" />
+    <End Role="WORKITEM" Type="Self.WORKITEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENT">
+        <PropertyRef Name="Client_ID" />
+      </Principal>
+      <Dependent Role="WORKITEM">
+        <PropertyRef Name="Client_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WorkStaff">
+    <End Role="STAFF" Type="Self.STAFF" Multiplicity="1" />
+    <End Role="WORKITEM" Type="Self.WORKITEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="STAFF">
+        <PropertyRef Name="Staff_ID" />
+      </Principal>
+      <Dependent Role="WORKITEM">
+        <PropertyRef Name="Staff_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="invoiceITModelStoreContainer">
+    <EntitySet Name="CLIENT" EntityType="Self.CLIENT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="INVOICE" EntityType="Self.INVOICE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="STAFF" EntityType="Self.STAFF" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TASK" EntityType="Self.TASK" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WORKITEM" EntityType="Self.WORKITEM" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WORKITEMTASK" EntityType="Self.WORKITEMTASK" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_InvoiceClient" Association="Self.FK_InvoiceClient">
+      <End Role="CLIENT" EntitySet="CLIENT" />
+      <End Role="INVOICE" EntitySet="INVOICE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvoiceWork" Association="Self.FK_InvoiceWork">
+      <End Role="WORKITEM" EntitySet="WORKITEM" />
+      <End Role="INVOICE" EntitySet="INVOICE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StaffManager" Association="Self.FK_StaffManager">
+      <End Role="STAFF" EntitySet="STAFF" />
+      <End Role="STAFF1" EntitySet="STAFF" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TASK" Association="Self.FK_TASK">
+      <End Role="TASK" EntitySet="TASK" />
+      <End Role="WORKITEMTASK" EntitySet="WORKITEMTASK" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Work" Association="Self.FK_Work">
+      <End Role="WORKITEM" EntitySet="WORKITEM" />
+      <End Role="WORKITEMTASK" EntitySet="WORKITEMTASK" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WorkClient" Association="Self.FK_WorkClient">
+      <End Role="CLIENT" EntitySet="CLIENT" />
+      <End Role="WORKITEM" EntitySet="WORKITEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WorkStaff" Association="Self.FK_WorkStaff">
+      <End Role="STAFF" EntitySet="STAFF" />
+      <End Role="WORKITEM" EntitySet="WORKITEM" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

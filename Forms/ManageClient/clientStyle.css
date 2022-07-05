@@ -1,0 +1,27 @@
+﻿body {
+}
+
+/* CLIENT TABLE DISPLAY STYLES */
+
+.clientlistingcont {
+    width: 100%;
+    padding: 0;
+}
+
+.clientlistingrow {
+    width: 100%;
+    padding: 30px 30px 30px 30px;
+    display: block;
+    font-size: 20px;
+    overflow: auto;
+}
+
+.clientrowspace {
+    width: 14%;
+    float: left;
+}
+
+.clientdetails {
+    font-size: 25px;
+    padding: 30px 30px 15px 30px;
+}

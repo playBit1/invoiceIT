@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="invoiceITModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CLIENT">
+    <Key>
+      <PropertyRef Name="Client_ID" />
+    </Key>
+    <Property Name="Client_ID" Type="Int32" Nullable="false" />
+    <Property Name="Comp_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Comp_Add1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Comp_Add2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Comp_Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Comp_Pcode" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Contact_Fname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Contact_Lname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Contact_Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Contact_Mobile" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Bill_To" Type="String" MaxLength="40" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="40" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="INVOICEs" Relationship="Self.FK_InvoiceClient" FromRole="CLIENT" ToRole="INVOICE" />
+    <NavigationProperty Name="WORKITEMs" Relationship="Self.FK_WorkClient" FromRole="CLIENT" ToRole="WORKITEM" />
+  </EntityType>
+  <EntityType Name="INVOICE">
+    <Key>
+      <PropertyRef Name="Invoice_ID" />
+    </Key>
+    <Property Name="Invoice_ID" Type="Int32" Nullable="false" />
+    <Property Name="Client_ID" Type="Int32" Nullable="false" />
+    <Property Name="Work_ID" Type="Int32" Nullable="false" />
+    <Property Name="Generated_Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Sent_Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Payment_Due_Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Status" Type="String" MaxLength="40" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="CLIENT" Relationship="Self.FK_InvoiceClient" FromRole="INVOICE" ToRole="CLIENT" />
+    <NavigationProperty Name="WORKITEM" Relationship="Self.FK_InvoiceWork" FromRole="INVOICE" ToRole="WORKITEM" />
+  </EntityType>
+  <EntityType Name="STAFF">
+    <Key>
+      <PropertyRef Name="Staff_ID" />
+    </Key>
+    <Property Name="Staff_ID" Type="Int32" Nullable="false" />
+    <Property Name="Admin_Id" Type="Int32" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="F_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Mobile" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Access_Level" Type="String" MaxLength="40" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="40" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="STAFF1" Relationship="Self.FK_StaffManager" FromRole="STAFF" ToRole="STAFF1" />
+    <NavigationProperty Name="STAFF2" Relationship="Self.FK_StaffManager" FromRole="STAFF1" ToRole="STAFF" />
+    <NavigationProperty Name="WORKITEMs" Relationship="Self.FK_WorkStaff" FromRole="STAFF" ToRole="WORKITEM" />
+  </EntityType>
+  <EntityType Name="TASK">
+    <Key>
+      <PropertyRef Name="Task_ID" />
+    </Key>
+    <Property Name="Task_ID" Type="Int32" Nullable="false" />
+    <Property Name="Task_Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Task_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Task_Rate" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="WORKITEMs" Relationship="Self.WORKITEMTASK" FromRole="TASK" ToRole="WORKITEM" />
+  </EntityType>
+  <EntityType Name="WORKITEM">
+    <Key>
+      <PropertyRef Name="Work_ID" />
+    </Key>
+    <Property Name="Work_ID" Type="Int32" Nullable="false" />
+    <Property Name="Client_ID" Type="Int32" Nullable="false" />
+    <Property Name="Staff_ID" Type="Int32" Nullable="false" />
+    <Property Name="Start_Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Completed_Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Start_Time" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="End_Time" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="Status" Type="String" MaxLength="40" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CLIENT" Relationship="Self.FK_WorkClient" FromRole="WORKITEM" ToRole="CLIENT" />
+    <NavigationProperty Name="INVOICEs" Relationship="Self.FK_InvoiceWork" FromRole="WORKITEM" ToRole="INVOICE" />
+    <NavigationProperty Name="STAFF" Relationship="Self.FK_WorkStaff" FromRole="WORKITEM" ToRole="STAFF" />
+    <NavigationProperty Name="TASKs" Relationship="Self.WORKITEMTASK" FromRole="WORKITEM" ToRole="TASK" />
+  </EntityType>
+  <Association Name="FK_InvoiceClient">
+    <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="1" />
+    <End Role="INVOICE" Type="Self.INVOICE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENT">
+        <PropertyRef Name="Client_ID" />
+      </Principal>
+      <Dependent Role="INVOICE">
+        <PropertyRef Name="Client_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WorkClient">
+    <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="1" />
+    <End Role="WORKITEM" Type="Self.WORKITEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENT">
+        <PropertyRef Name="Client_ID" />
+      </Principal>
+      <Dependent Role="WORKITEM">
+        <PropertyRef Name="Client_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvoiceWork">
+    <End Role="WORKITEM" Type="Self.WORKITEM" Multiplicity="1" />
+    <End Role="INVOICE" Type="Self.INVOICE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WORKITEM">
+        <PropertyRef Name="Work_ID" />
+      </Principal>
+      <Dependent Role="INVOICE">
+        <PropertyRef Name="Work_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StaffManager">
+    <End Role="STAFF" Type="Self.STAFF" Multiplicity="1" />
+    <End Role="STAFF1" Type="Self.STAFF" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="STAFF">
+        <PropertyRef Name="Staff_ID" />
+      </Principal>
+      <Dependent Role="STAFF1">
+        <PropertyRef Name="Admin_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WorkStaff">
+    <End Role="STAFF" Type="Self.STAFF" Multiplicity="1" />
+    <End Role="WORKITEM" Type="Self.WORKITEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="STAFF">
+        <PropertyRef Name="Staff_ID" />
+      </Principal>
+      <Dependent Role="WORKITEM">
+        <PropertyRef Name="Staff_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WORKITEMTASK">
+    <End Role="TASK" Type="Self.TASK" Multiplicity="*" />
+    <End Role="WORKITEM" Type="Self.WORKITEM" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CLIENTs" EntityType="Self.CLIENT" />
+    <EntitySet Name="INVOICEs" EntityType="Self.INVOICE" />
+    <EntitySet Name="STAFFs" EntityType="Self.STAFF" />
+    <EntitySet Name="TASKs" EntityType="Self.TASK" />
+    <EntitySet Name="WORKITEMs" EntityType="Self.WORKITEM" />
+    <AssociationSet Name="FK_InvoiceClient" Association="Self.FK_InvoiceClient">
+      <End Role="CLIENT" EntitySet="CLIENTs" />
+      <End Role="INVOICE" EntitySet="INVOICEs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WorkClient" Association="Self.FK_WorkClient">
+      <End Role="CLIENT" EntitySet="CLIENTs" />
+      <End Role="WORKITEM" EntitySet="WORKITEMs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvoiceWork" Association="Self.FK_InvoiceWork">
+      <End Role="WORKITEM" EntitySet="WORKITEMs" />
+      <End Role="INVOICE" EntitySet="INVOICEs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StaffManager" Association="Self.FK_StaffManager">
+      <End Role="STAFF" EntitySet="STAFFs" />
+      <End Role="STAFF1" EntitySet="STAFFs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WorkStaff" Association="Self.FK_WorkStaff">
+      <End Role="STAFF" EntitySet="STAFFs" />
+      <End Role="WORKITEM" EntitySet="WORKITEMs" />
+    </AssociationSet>
+    <AssociationSet Name="WORKITEMTASK" Association="Self.WORKITEMTASK">
+      <End Role="TASK" EntitySet="TASKs" />
+      <End Role="WORKITEM" EntitySet="WORKITEMs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

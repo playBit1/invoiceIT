@@ -1,0 +1,43 @@
+﻿body {
+}
+
+/* Task TABLE DISPLAY STYLES */
+
+.tasklistingcont {
+    width: 100%;
+    padding: 0;
+}
+
+.tasklistingrow {
+    width: 100%;
+    padding: 30px 0px 30px 30px;
+    display: block;
+    font-size: 20px;
+    overflow: auto;
+}
+
+.taskid {
+    width: 20%;
+    float: left;
+}
+
+.tasktitle {
+    width: 40%;
+    float: left;
+}
+
+.taskrate {
+    width: 20%;
+    float: left;
+}
+
+.taskview {
+    width: 20%;
+    float: left;
+}
+
+
+.taskdetails {
+    font-size: 25px;
+    padding: 30px 30px 15px 30px;
+}

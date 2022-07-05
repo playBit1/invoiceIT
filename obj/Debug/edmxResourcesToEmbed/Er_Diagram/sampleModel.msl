@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="invoiceITModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="CLIENTs">
+      <EntityTypeMapping TypeName="invoiceITModel.CLIENT">
+        <MappingFragment StoreEntitySet="CLIENT">
+          <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
+          <ScalarProperty Name="Comp_Name" ColumnName="Comp_Name" />
+          <ScalarProperty Name="Comp_Add1" ColumnName="Comp_Add1" />
+          <ScalarProperty Name="Comp_Add2" ColumnName="Comp_Add2" />
+          <ScalarProperty Name="Comp_Location" ColumnName="Comp_Location" />
+          <ScalarProperty Name="Comp_Pcode" ColumnName="Comp_Pcode" />
+          <ScalarProperty Name="Contact_Fname" ColumnName="Contact_Fname" />
+          <ScalarProperty Name="Contact_Lname" ColumnName="Contact_Lname" />
+          <ScalarProperty Name="Contact_Email" ColumnName="Contact_Email" />
+          <ScalarProperty Name="Contact_Mobile" ColumnName="Contact_Mobile" />
+          <ScalarProperty Name="Bill_To" ColumnName="Bill_To" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="INVOICEs">
+      <EntityTypeMapping TypeName="invoiceITModel.INVOICE">
+        <MappingFragment StoreEntitySet="INVOICE">
+          <ScalarProperty Name="Invoice_ID" ColumnName="Invoice_ID" />
+          <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
+          <ScalarProperty Name="Work_ID" ColumnName="Work_ID" />
+          <ScalarProperty Name="Generated_Date" ColumnName="Generated_Date" />
+          <ScalarProperty Name="Sent_Date" ColumnName="Sent_Date" />
+          <ScalarProperty Name="Payment_Due_Date" ColumnName="Payment_Due_Date" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="STAFFs">
+      <EntityTypeMapping TypeName="invoiceITModel.STAFF">
+        <MappingFragment StoreEntitySet="STAFF">
+          <ScalarProperty Name="Staff_ID" ColumnName="Staff_ID" />
+          <ScalarProperty Name="Admin_Id" ColumnName="Admin_Id" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="F_Name" ColumnName="F_Name" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Access_Level" ColumnName="Access_Level" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TASKs">
+      <EntityTypeMapping TypeName="invoiceITModel.TASK">
+        <MappingFragment StoreEntitySet="TASK">
+          <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+          <ScalarProperty Name="Task_Title" ColumnName="Task_Title" />
+          <ScalarProperty Name="Task_Description" ColumnName="Task_Description" />
+          <ScalarProperty Name="Task_Rate" ColumnName="Task_Rate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WORKITEMs">
+      <EntityTypeMapping TypeName="invoiceITModel.WORKITEM">
+        <MappingFragment StoreEntitySet="WORKITEM">
+          <ScalarProperty Name="Work_ID" ColumnName="Work_ID" />
+          <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
+          <ScalarProperty Name="Staff_ID" ColumnName="Staff_ID" />
+          <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+          <ScalarProperty Name="Completed_Date" ColumnName="Completed_Date" />
+          <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
+          <ScalarProperty Name="End_Time" ColumnName="End_Time" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="WORKITEMTASK" TypeName="invoiceITModel.WORKITEMTASK" StoreEntitySet="WORKITEMTASK">
+      <EndProperty Name="TASK">
+        <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+      </EndProperty>
+      <EndProperty Name="WORKITEM">
+        <ScalarProperty Name="Work_ID" ColumnName="Work_ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
